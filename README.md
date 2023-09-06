@@ -1,4 +1,4 @@
-[# GitHub Actions Cluster Installation Guide
+# GitHub Actions Cluster Installation Guide
 
 This guide will walk you through the process of setting up a GitHub Actions cluster on Amazon Elastic Kubernetes Service (EKS) with customizable scaling and machine types. This cluster will enable you to run GitHub Actions workflows on your own infrastructure.
 
