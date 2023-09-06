@@ -1,0 +1,46 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: dimo-runner-large
+  namespace: build-runners
+spec:
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    spec:
+      image: summerwind/actions-runner-dind
+      dockerdWithinRunnerContainer: true
+      env: []
+      nodeSelector:
+        role: worker
+        size: large
+      organization: DIMO-Network
+      labels:
+        - large
+      containers:
+        - name: runner
+          env: []
+          resources:
+            limits:
+              cpu: "8"
+              memory: "16Gi"
+            requests:
+              cpu: 7200m
+              memory: "14Gi"
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: dimo-runner-large-autoscaler
+  namespace: build-runners
+spec:
+  scaleDownDelaySecondsAfterScaleOut: 240
+  scaleTargetRef:
+    name: dimo-runner-large
+  minReplicas: 0
+  maxReplicas: 1
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - Macaron

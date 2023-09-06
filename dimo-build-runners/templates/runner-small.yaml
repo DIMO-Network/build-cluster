@@ -1,0 +1,48 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: dimo-runner-small
+  namespace: build-runners
+spec:
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    spec:
+      image: summerwind/actions-runner-dind
+      dockerdWithinRunnerContainer: true
+      env: []
+      nodeSelector:
+        role: worker
+        size: small
+      organization: DIMO-Network
+      labels:
+        - small
+      containers:
+        - name: runner
+          env: []
+          resources:
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+            requests:
+              cpu: 1800m
+              memory: "3Gi"
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: dimo-runner-small-autoscaler
+  namespace: build-runners
+spec:
+  scaleDownDelaySecondsAfterScaleOut: 240
+  scaleTargetRef:
+    name: dimo-runner-small
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: PercentageRunnersBusy
+      scaleUpThreshold: "1"
+      scaleDownThreshold: ".5"
+      scaleUpFactor: "1"
+      scaleDownFactor: "1"

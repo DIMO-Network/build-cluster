@@ -1,0 +1,9 @@
+dependencies:
+- name: actions-runner-controller
+  repository: https://actions-runner-controller.github.io/actions-runner-controller
+  version: 0.23.5
+- name: cluster-autoscaler
+  repository: https://kubernetes.github.io/autoscaler
+  version: 9.29.1
+digest: sha256:effae30500b0150e0879f0fc169996fbd28d7e1a7dd96bb9cb4a9a07824b89cb
+generated: "2023-09-06T14:51:06.851384-04:00"

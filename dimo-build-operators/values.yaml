@@ -1,0 +1,50 @@
+cluster-autoscaler:
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: 1
+  nodeSelector:
+    role: core
+  cloudProvider: aws
+  autoDiscovery:
+    clusterName: build-cluster
+  extraArgs:
+    stderrthreshold: warn
+    v: 1
+  rbac:
+    create: true
+  extraArgs:
+    scale-down-delay-after-add: 1m0s
+    scale-down-unneeded-time: 1m0s
+    balance-similar-node-groups: false
+    skip-nodes-with-system-pods: false
+    skip-nodes-with-local-storage: false
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+
+actions-runner-controller:
+  nodeSelector:
+    role: core
+  resources:
+    limits:
+      cpu: 1
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  
+  authSecret:
+    create: true
+    github_token: "TEST"
+
+  runner:
+    statusUpdateHook:
+      enabled: true

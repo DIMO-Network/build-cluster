@@ -1,0 +1,100 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: build-cluster
+  region: us-east-1
+  version: "1.27"
+availabilityZones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+secretsEncryption:
+  keyARN: YOUR_KEY_ARN
+
+addons:
+  - name: coredns
+  - name: vpc-cni
+  - name: kube-proxy
+
+managedNodeGroups:
+  - name: static-nodes
+    amiFamily: AmazonLinux2
+    labels:
+      role: core
+    #we can omit tags with this flag
+    propagateASGTags: true
+    privateNetworking: true
+    instanceSelector:
+      vCPUs: 2
+      memory: 4GiB #
+      cpuArchitecture: x86_64 # default value
+    spot: true
+    minSize: 1
+    maxSize: 1
+    desiredCapacity: 1
+    volumeSize: 20
+    volumeEncrypted: true
+
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        externalDNS: true
+        certManager: true
+        awsLoadBalancerController: true
+  - name: dynamic-nodes-small
+    amiFamily: AmazonLinux2
+    labels:
+      role: worker
+      size: small
+    propagateASGTags: true
+    privateNetworking: true
+    instanceSelector:
+      vCPUs: 2
+      memory: 4GiB
+      cpuArchitecture: x86_64 # default value
+    spot: true
+    minSize: 1
+    maxSize: 2
+    desiredCapacity: 1
+    volumeSize: 20
+    volumeEncrypted: true
+  - name: dynamic-nodes-medium
+    amiFamily: AmazonLinux2
+    labels:
+      role: worker
+      size: medium
+    propagateASGTags: true
+    privateNetworking: true
+    instanceSelector:
+      vCPUs: 4
+      memory: 8GiB
+      cpuArchitecture: x86_64 # default value
+    spot: true
+    minSize: 0
+    maxSize: 1
+    desiredCapacity: 0
+    volumeSize: 40
+    volumeEncrypted: true
+  - name: dynamic-nodes-large
+    amiFamily: AmazonLinux2
+    labels:
+      role: worker
+      size: large
+    propagateASGTags: true
+    privateNetworking: true
+    instanceSelector:
+      vCPUs: 8
+      memory: 16GiB
+      cpuArchitecture: x86_64 # default value
+    spot: true
+    minSize: 0
+    maxSize: 1
+    desiredCapacity: 0
+    volumeSize: 40
+    volumeEncrypted: true
+vpc:
+  clusterEndpoints:
+    privateAccess: true
+    publicAccess: true
+  nat:
+    gateway: Single
+
+iam:
+  withOIDC: true

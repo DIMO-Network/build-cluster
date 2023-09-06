@@ -1,0 +1,9 @@
+cert-manager:
+  nodeSelector:
+    role: core
+  installCRDs: true
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  prometheus:
+    enabled: false
