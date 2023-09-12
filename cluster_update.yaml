@@ -1,0 +1,22 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: build-cluster
+  region: us-east-1
+  version: "1.27"
+
+managedNodeGroups:
+  - name: dynamic-nodes-enclave
+    amiFamily: AmazonLinux2
+    labels:
+      role: worker
+      size: medium
+      enclave: "true"
+    propagateASGTags: true
+    privateNetworking: true
+    launchTemplate:
+      id: lt-066aabaedd97bc992
+      version: "2"
+    minSize: 0
+    maxSize: 1
+    desiredCapacity: 0

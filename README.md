@@ -82,3 +82,8 @@ eksctl delete cluster --region=us-east-1 --name=build-cluster
 If you ever need to delete the EKS cluster, you can use this command. Be cautious, as this will permanently remove the cluster and its resources.
 
 That's it! You have successfully set up a GitHub Actions cluster on Amazon EKS with customizable scaling and machine types.
+
+## Step Update: Add a new Nodegroup to the Cluster (Optional)
+```shell
+eksctl create nodegroup --config-file=cluster-update.yaml --name=build-cluster
+```

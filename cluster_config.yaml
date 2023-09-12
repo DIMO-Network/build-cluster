@@ -89,6 +89,20 @@ managedNodeGroups:
     desiredCapacity: 0
     volumeSize: 40
     volumeEncrypted: true
+  - name: dynamic-nodes-enclave
+    amiFamily: AmazonLinux2
+    labels:
+      role: worker
+      size: medium
+      enclave: "true"
+    propagateASGTags: true
+    privateNetworking: true
+    launchTemplate:
+      id: lt-066aabaedd97bc992
+      version: "1"
+    minSize: 0
+    maxSize: 1
+    desiredCapacity: 0
 vpc:
   clusterEndpoints:
     privateAccess: true
