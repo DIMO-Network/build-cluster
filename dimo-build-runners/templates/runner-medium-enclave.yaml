@@ -17,6 +17,9 @@ spec:
         size: medium
         enclave: "true"
       organization: DIMO-Network
+      securityContext:
+        allowPrivilegeEscalation: true
+        privileged: true
       labels:
         - medium
         - enclave
@@ -44,7 +47,7 @@ metadata:
   name: dimo-runner-medium-enclave-autoscaler
   namespace: build-runners
 spec:
-  scaleDownDelaySecondsAfterScaleOut: 240
+  scaleDownDelaySecondsAfterScaleOut: 600
   scaleTargetRef:
     name: dimo-runner-medium-enclave
   minReplicas: 0
