@@ -26,8 +26,8 @@ spec:
               cpu: "2"
               memory: "4Gi"
             requests:
-              cpu: 1800m
-              memory: "3Gi"
+              cpu: 1500m
+              memory: "2500Mi"
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
