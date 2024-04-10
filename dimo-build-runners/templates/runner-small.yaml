@@ -18,6 +18,7 @@ spec:
       organization: DIMO-Network
       labels:
         - small
+        - ubuntu-latest
       containers:
         - name: runner
           env: []
