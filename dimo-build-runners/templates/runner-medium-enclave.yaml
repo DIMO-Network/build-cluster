@@ -23,6 +23,7 @@ spec:
       labels:
         - medium
         - enclave
+        - ubuntu-latest
       containers:
         - name: runner
           env: []
@@ -34,12 +35,12 @@ spec:
               cpu: 1800m
               memory: "3Gi"
       volumeMounts:
-      - mountPath: /dev/nitro_enclaves
-        name: nitro-enclaves
+        - mountPath: /dev/nitro_enclaves
+          name: nitro-enclaves
       volumes:
-      - name: nitro-enclaves
-        hostPath:
-          path: /dev/nitro_enclaves
+        - name: nitro-enclaves
+          hostPath:
+            path: /dev/nitro_enclaves
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
@@ -53,7 +54,6 @@ spec:
   minReplicas: 0
   maxReplicas: 1
   metrics:
-  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
-    repositoryNames:
-    - synthetic-wallet-enclave
-
+    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+      repositoryNames:
+        - synthetic-wallet-enclave
