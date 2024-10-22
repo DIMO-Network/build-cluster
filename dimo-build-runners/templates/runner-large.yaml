@@ -38,10 +38,11 @@ metadata:
 spec:
   scaleDownDelaySecondsAfterScaleOut: 240
   scaleTargetRef:
-    name: dimo-runner-large
+    name: dimo-runner-medium
   minReplicas: 0
   maxReplicas: 1
   metrics:
     - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
       repositoryNames:
         - Macaron
+        - dis

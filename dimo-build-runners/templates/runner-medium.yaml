@@ -45,3 +45,4 @@ spec:
     - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
       repositoryNames:
         - Macaron
+        - dis
