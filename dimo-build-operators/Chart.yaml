@@ -25,8 +25,8 @@ appVersion: 0.1.0
 
 dependencies:
 - name: actions-runner-controller
-  version: "0.23.5"
+  version: "0.23.7"
   repository: "https://actions-runner-controller.github.io/actions-runner-controller"
 - name: cluster-autoscaler
-  version: "9.29.1"
+  version: "9.43.1"
   repository: "https://kubernetes.github.io/autoscaler"
