@@ -23,7 +23,6 @@ spec:
       labels:
         - medium
         - enclave
-        - ubuntu-latest
       containers:
         - name: runner
           env: []
