@@ -37,7 +37,7 @@ metadata:
 spec:
   scaleDownDelaySecondsAfterScaleOut: 240
   scaleTargetRef:
-    name: dimo-runner-medium
+    name: dimo-runner-large
   minReplicas: 0
   maxReplicas: 1
   metrics:
