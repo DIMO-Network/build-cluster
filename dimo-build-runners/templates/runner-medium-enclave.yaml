@@ -56,3 +56,4 @@ spec:
     - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
       repositoryNames:
         - synthetic-wallet-enclave
+        - sample-enclave-api
